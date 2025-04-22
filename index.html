@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2C Construção - Fale Conosco via WhatsApp</title>
+    
+    <!-- Meta Pixel Code (SEU PIXEL JÁ INTEGRADO) -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '9586518624729629'); <!-- SEU PIXEL AQUI -->
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=9586518624729629&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            color: #25D366;
+            margin-bottom: 20px;
+        }
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 20px 0;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        .countdown {
+            font-size: 1.2em;
+            color: #555;
+            margin: 15px 0;
+        }
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #25D366;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="loader"></div>
+        <h1>2C Construção</h1>
+        <p class="countdown">Redirecionando para o WhatsApp em <span id="countdown">5</span> segundos...</p>
+        
+        <a href="https://wa.me/55929921838433?text=Olá%202C%20Construção,%20vim%20pelo%20anúncio%20e%20quero%20saber%20mais!" 
+           class="whatsapp-btn" 
+           id="whatsapp-btn">
+           📱 Falar no WhatsApp Agora
+        </a>
+        
+        <p><small>Se não for redirecionado, clique no botão acima</small></p>
+    </div>
+
+    <script>
+        // Configurações do redirecionamento
+        const whatsappUrl = "https://wa.me/55929921838433?text=Olá%202C%20Construção,%20vim%20pelo%20anúncio%20e%20quero%20saber%20mais!";
+        let seconds = 5;
+        const countdownEl = document.getElementById('countdown');
+        
+        // Contador regressivo
+        const timer = setInterval(() => {
+            seconds--;
+            countdownEl.textContent = seconds;
+            if(seconds <= 0) clearInterval(timer);
+        }, 1000);
+        
+        // Rastreia clique no botão
+        document.getElementById('whatsapp-btn').addEventListener('click', () => {
+            fbq('track', 'WhatsAppClick'); // Evento de clique
+        });
+        
+        // Redirecionamento automático
+        setTimeout(() => {
+            fbq('track', 'WhatsAppRedirect'); // Evento de redirecionamento
+            window.location.href = whatsappUrl;
+        }, 5000);
+    </script>
+</body>
+</html>
