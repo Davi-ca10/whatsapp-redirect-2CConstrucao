@@ -135,48 +135,43 @@
             font-size: 24px;
         }
         
-        .countdown {
-            font-size: 1.1em;
-            color: #555;
-            margin: 20px 0;
-            font-weight: 500;
-        }
-        
-        .countdown #countdown {
-            font-weight: 700;
-            color: var(--azul-primario);
-            font-size: 1.3em;
-        }
-        
-        .loader-container {
+        .countdown-container {
             position: relative;
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 25px;
+            height: 120px;
+            margin: 20px 0;
         }
         
-        .loader {
-            border: 5px solid rgba(0, 86, 179, 0.1);
-            border-top: 5px solid var(--azul-primario);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1.5s linear infinite;
+        .mascote {
+            width: 100px;
+            height: 100px;
             margin: 0 auto;
             position: relative;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="40" r="30" fill="%23FFD700"/><circle cx="50" cy="30" r="20" fill="%23FFD700"/><circle cx="40" cy="25" r="3" fill="%23003366"/><circle cx="60" cy="25" r="3" fill="%23003366"/><path d="M45 35 Q50 40 55 35" stroke="%23003366" stroke-width="2" fill="none"/><path d="M30 60 Q50 80 70 60" stroke="%23003366" stroke-width="2" fill="%23FFC000"/></svg>') no-repeat center;
+            background-size: contain;
+            animation: bounce 2s infinite;
         }
         
-        .loader::after {
-            content: '';
+        .countdown-number {
             position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            border: 5px solid rgba(255, 215, 0, 0.1);
-            border-top: 5px solid var(--amarelo-primario);
-            border-radius: 50%;
-            animation: spin 2s linear infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            font-weight: 800;
+            color: var(--azul-primario);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        
+        .countdown-number.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
         
         @keyframes spin {
@@ -198,18 +193,6 @@
             font-size: 0.85em;
             color: #666;
             margin-top: 20px;
-        }
-        
-        .logo {
-            width: 80px;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards 0.5s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         .redirect-animation {
@@ -250,18 +233,52 @@
             font-weight: 600;
             margin-top: 20px;
         }
+        
+        .mascote-message {
+            background: var(--amarelo-primario);
+            color: var(--azul-secundario);
+            padding: 10px 15px;
+            border-radius: 20px;
+            position: relative;
+            margin: 20px auto;
+            max-width: 80%;
+            font-weight: 500;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .mascote-message::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20%;
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: var(--amarelo-primario) transparent transparent;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container pulse">
-        <div class="loader-container">
-            <div class="loader"></div>
+        <div class="countdown-container">
+            <div class="mascote"></div>
+            <div class="countdown-number" id="countdown5">5</div>
+            <div class="countdown-number" id="countdown4">4</div>
+            <div class="countdown-number" id="countdown3">3</div>
+            <div class="countdown-number" id="countdown2">2</div>
+            <div class="countdown-number" id="countdown1">1</div>
         </div>
-        <h1>2C Construção</h1>
-        <p class="countdown">Redirecionando para o WhatsApp em <span id="countdown">5</span> segundos...</p>
         
-        <a href="https://wa.me/5592992246774?text=Olá%202C%20Construção,%20vim%20pelo%20anúncio%20e%20quero%20saber%20mais!" 
+        <div class="mascote-message">Te levo pro WhatsApp agora!</div>
+        
+        <h1>2C Construção</h1>
+        
+        <a href="https://wa.me/5592984445907?text=Olá%202C%20Construção,%20vim%20pelo%20anúncio%20e%20quero%20saber%20mais!" 
            class="whatsapp-btn" 
            id="whatsapp-btn">
            <i class="fab fa-whatsapp"></i> Falar no WhatsApp Agora
@@ -277,27 +294,42 @@
 
     <script>
         // Configurações do redirecionamento
-        const whatsappUrl = "https://wa.me/5592992246774?text=Olá%202C%20Construção,%20vim%20pelo%20anúncio%20e%20quero%20saber%20mais!";
+        const whatsappUrl = "https://wa.me/5592984445907?text=Olá%202C%20Construção,%20vim%20pelo%20anúncio%20e%20quero%20saber%20mais!";
         let seconds = 5;
-        const countdownEl = document.getElementById('countdown');
         const redirectAnimation = document.getElementById('redirectAnimation');
         
-        // Contador regressivo com animação suave
-        const timer = setInterval(() => {
-            seconds--;
-            countdownEl.textContent = seconds;
+        // Animação da contagem regressiva
+        function animateCountdown() {
+            document.getElementById('countdown5').classList.add('active');
             
-            // Efeito de pulso no último segundo
-            if(seconds <= 3) {
-                countdownEl.style.color = "#FF0000";
-                countdownEl.classList.add('pulse');
-            }
+            setTimeout(() => {
+                document.getElementById('countdown5').classList.remove('active');
+                document.getElementById('countdown4').classList.add('active');
+            }, 1000);
             
-            if(seconds <= 0) {
-                clearInterval(timer);
+            setTimeout(() => {
+                document.getElementById('countdown4').classList.remove('active');
+                document.getElementById('countdown3').classList.add('active');
+            }, 2000);
+            
+            setTimeout(() => {
+                document.getElementById('countdown3').classList.remove('active');
+                document.getElementById('countdown2').classList.add('active');
+            }, 3000);
+            
+            setTimeout(() => {
+                document.getElementById('countdown2').classList.remove('active');
+                document.getElementById('countdown1').classList.add('active');
+            }, 4000);
+            
+            setTimeout(() => {
+                document.getElementById('countdown1').classList.remove('active');
                 startRedirectAnimation();
-            }
-        }, 1000);
+            }, 5000);
+        }
+        
+        // Inicia a animação
+        animateCountdown();
         
         // Animação de redirecionamento
         function startRedirectAnimation() {
