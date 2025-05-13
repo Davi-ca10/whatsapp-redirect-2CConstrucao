@@ -24,104 +24,299 @@
     <!-- End Meta Pixel Code -->
 
     <style>
+        :root {
+            --azul-primario: #0056b3;
+            --azul-secundario: #003366;
+            --amarelo-primario: #FFD700;
+            --amarelo-secundario: #FFC000;
+            --branco: #ffffff;
+            --cinza-claro: #f5f5f5;
+        }
+        
         body {
-            font-family: 'Arial', sans-serif;
-            background: #f8f9fa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco) 100%);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             text-align: center;
+            overflow-x: hidden;
         }
+        
         .container {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: var(--branco);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             width: 90%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
         }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--amarelo-primario) 0%, var(--azul-primario) 100%);
+        }
+        
         h1 {
-            color: #25D366;
+            color: var(--azul-secundario);
             margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
         }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--amarelo-primario);
+            border-radius: 3px;
+        }
+        
         .whatsapp-btn {
-            background: #25D366;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
-            padding: 15px 30px;
+            padding: 16px 35px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin: 20px 0;
-            transition: all 0.3s;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 25px 0;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             font-size: 18px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
+        
         .whatsapp-btn:hover {
-            background: #128C7E;
             transform: translateY(-3px);
-            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
         }
+        
+        .whatsapp-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .whatsapp-btn:hover::before {
+            left: 100%;
+        }
+        
+        .whatsapp-btn i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
         .countdown {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: #555;
-            margin: 15px 0;
+            margin: 20px 0;
+            font-weight: 500;
         }
+        
+        .countdown #countdown {
+            font-weight: 700;
+            color: var(--azul-primario);
+            font-size: 1.3em;
+        }
+        
+        .loader-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+        }
+        
         .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #25D366;
+            border: 5px solid rgba(0, 86, 179, 0.1);
+            border-top: 5px solid var(--azul-primario);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.5s linear infinite;
+            margin: 0 auto;
+            position: relative;
         }
+        
+        .loader::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 5px solid rgba(255, 215, 0, 0.1);
+            border-top: 5px solid var(--amarelo-primario);
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .note {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 20px;
+        }
+        
+        .logo {
+            width: 80px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .redirect-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--branco);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .redirect-animation.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .redirect-loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(0, 86, 179, 0.2);
+            border-top-color: var(--azul-primario);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        .redirect-text {
+            font-size: 1.2em;
+            color: var(--azul-secundario);
+            font-weight: 600;
+            margin-top: 20px;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="loader"></div>
+    <div class="container pulse">
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
         <h1>2C Construção</h1>
         <p class="countdown">Redirecionando para o WhatsApp em <span id="countdown">5</span> segundos...</p>
         
-        <a href="https://wa.me/5592991077007?text=Olá%202C%20Construção,%20vim%20pelo%20anúncio%20e%20quero%20saber%20mais!" 
+        <a href="https://wa.me/5592992246774?text=Olá%202C%20Construção,%20vim%20pelo%20anúncio%20e%20quero%20saber%20mais!" 
            class="whatsapp-btn" 
            id="whatsapp-btn">
-           📱 Falar no WhatsApp Agora
+           <i class="fab fa-whatsapp"></i> Falar no WhatsApp Agora
         </a>
         
-        <p><small>Se não for redirecionado, clique no botão acima</small></p>
+        <p class="note">Se não for redirecionado automaticamente, clique no botão acima</p>
+    </div>
+
+    <div class="redirect-animation" id="redirectAnimation">
+        <div class="redirect-loader"></div>
+        <div class="redirect-text">Conectando você ao WhatsApp...</div>
     </div>
 
     <script>
         // Configurações do redirecionamento
-        const whatsappUrl = "https://wa.me/5592991077007?text=Olá%202C%20Construção,%20vim%20pelo%20anúncio%20e%20quero%20saber%20mais!";
+        const whatsappUrl = "https://wa.me/5592992246774?text=Olá%202C%20Construção,%20vim%20pelo%20anúncio%20e%20quero%20saber%20mais!";
         let seconds = 5;
         const countdownEl = document.getElementById('countdown');
+        const redirectAnimation = document.getElementById('redirectAnimation');
         
-        // Contador regressivo
+        // Contador regressivo com animação suave
         const timer = setInterval(() => {
             seconds--;
             countdownEl.textContent = seconds;
-            if(seconds <= 0) clearInterval(timer);
+            
+            // Efeito de pulso no último segundo
+            if(seconds <= 3) {
+                countdownEl.style.color = "#FF0000";
+                countdownEl.classList.add('pulse');
+            }
+            
+            if(seconds <= 0) {
+                clearInterval(timer);
+                startRedirectAnimation();
+            }
         }, 1000);
         
-        // Rastreia clique no botão
-        document.getElementById('whatsapp-btn').addEventListener('click', () => {
-            fbq('track', 'WhatsAppClick'); // Evento de clique
-        });
+        // Animação de redirecionamento
+        function startRedirectAnimation() {
+            redirectAnimation.classList.add('active');
+            
+            setTimeout(() => {
+                fbq('track', 'WhatsAppRedirect');
+                fbq('track', 'ViewContent');
+                window.location.href = whatsappUrl;
+            }, 1500);
+        }
         
-        // Redirecionamento automático
-        setTimeout(() => {
-            fbq('track', 'WhatsAppRedirect'); // Evento de redirecionamento
-            window.location.href = whatsappUrl;
-        }, 5000);
+        // Rastreia clique no botão
+        document.getElementById('whatsapp-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            fbq('track', 'WhatsAppClick');
+            fbq('track', 'Lead');
+            startRedirectAnimation();
+        });
     </script>
 </body>
 </html>
